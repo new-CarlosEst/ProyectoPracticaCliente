@@ -1,1 +1,4 @@
 Proyecto.md
+/.vscode
+/loginReg/node_modules
+/loginReg/.env
