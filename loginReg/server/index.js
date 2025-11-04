@@ -1,10 +1,11 @@
 //Me importo todos mis archivos .js
-import { sacarDatos, insertarDatos } from "./funciones";
-import { cargarDatos } from "./cargarDatos";
+import { sacarDatos, insertarDatos } from "./funciones.js";
+import { cargarDatos } from "./cargarDatos.js";
 
 //Me importo los drivers de corps y express
 import express from "express";
 import cors from "cors";
+import { cerrarConexion } from "./conexion.js";
 
 //crea una instacia express para crear un servidor donde se van a recibir las peticiones (tipo apache para php)
 const app = express();
@@ -24,6 +25,29 @@ app.use(express.json());
     }
 })(); //Los parentesis vacios estos ultimos es para llamar a la funcion anonima que he creado para cargar datos
 
+//* Peticion de inicio de sesion
+///Hago un post de cuando llamo a login con una peticion y lo que va a devolver (Respuesta)
+app.post("/login", async (peticion, respuesta) =>{
+    try {
+        //me saco los datos del cuerpo de la peticion
+        const {email, password} = peticion.body;
+
+        //llamo a sacar datos
+        const usuario = await sacarDatos(email, password);
+
+        //Si devuelve false es que no se ha podido encontrar usuario
+        if (!usuario){
+            respuesta.json({ok: false, mensaje: "El correo y la contraseña no coinciden"});
+        } 
+        else {
+            respuesta.json({ok: true, mensaje: "Datos consultaso correctamente", user: usuario});
+        } 
+
+    } catch (error){
+        respuesta.json({ok: false, mensaje: "Error interno del servidor" })
+    }
+});
+
 //* Peticion de registro
 //Me hago una peticion con /register sobre el localhost:3000 que recibe una peticion y una respuesta
 //La peticion son los datos que recibo y la respuesta lo que devuelvo
@@ -33,19 +57,27 @@ app.post("/register", async (peticion, respuesta) =>{
         const {user, email, password} = peticion.body;
 
         //Compruebo si el usuario y contraseña estan en la db
-        const estanRegistrados = sacarDatos(email, password);
+        const estanRegistrados = await sacarDatos(email, password);
         //si devuelve falso, es que no estan registrados asi que continuo
         if (!estanRegistrados){
+            //Llamo a insertar datos 
+            const insercion = await insertarDatos(email, user, password);
 
+            //si insercion devuelve true es que se han insertado los datos
+            if (insercion){
+                respuesta.json({ ok: true, mensaje: "Usuario registrado"});
+            }
+            else {
+                respuesta.json({ ok: false, mensaje: "Usuario no se pudo registrar"});
+            }
         }
         //Si no es que si estan registrados asi que paro la ejecucion
         else {
-            //TODO Mirar pq creo que la respuesta no deberia ser asi y terminar la peticion de registro
             //Devuelvo un objeto diciendo que no se ha registrado y pq 
-            //respuesta.json({ ok: true, mensaje: "Usuario registrado correctamente" });
+            respuesta.json({ ok: false, mensaje: "Usuario ya esta registrado" });
         }
     } catch (error){
-
+        respuesta.json({ ok: false, mensaje: "Error del servidor"});
     }
 
 });

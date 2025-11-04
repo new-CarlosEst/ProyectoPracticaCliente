@@ -1,7 +1,7 @@
 //Archivo en la que me creare las funciones de sacar e insertar datos a la db
 
 //Me importo todo lo necesario
-import { conectarse } from "./conexion";
+import { conectarse, cerrarConexion } from "./conexion.js";
 import bcrypt from "bcrypt";
 
 //Me conecto a la db y a la coleccion usuario
@@ -16,6 +16,7 @@ export async function sacarDatos (email , password) {
 
         //Si el usuario con ese email no existe devuelvo falso
         if (!usuario){
+            console.error("Email no existe")
             return false;
         }
         //si existe
@@ -25,9 +26,11 @@ export async function sacarDatos (email , password) {
             
             //Si la contraseña no coincide
             if (!comprobarContra){
+                console.error("Contraseña no coincide")
                 return false;
             }
             else {
+                console.log("Consulta exitosa")
                 return usuario;
             }
         }
@@ -52,5 +55,8 @@ export async function insertarDatos (email, user, password){
     } catch (error){
         console.error("Error al insersertar en la base de datos\n" + error);
         return false;
-    }
+    } 
 }
+
+//Cierro la conexion
+await cerrarConexion();

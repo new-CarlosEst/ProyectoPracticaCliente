@@ -1,7 +1,7 @@
 //Archivo en el que cargare los datos a la base de datos
 
 //Me importo la conexion y los drivers para encriptar datos
-import { conectar, conectarse } from "./conexion.js";
+import { cerrarConexion, conectarse } from "./conexion.js";
 import bcrypt from "bcrypt";
 
 //Me exporto la funcion de cargar datos
@@ -37,8 +37,7 @@ export async function cargarDatos() {
             //Me cargo los datos 
             const carga = await coleccion.insertMany(usuariosCargar);
             //Muestro cuantos inserts se hicieron
-            console.log("Numero de inserciones: " + carga.insertedCount())
-
+            console.log("Numero de inserciones: " + carga.insertedCount)
             return true;
         }
     } catch (error){
