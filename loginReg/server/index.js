@@ -5,7 +5,6 @@ import { cargarDatos } from "./cargarDatos.js";
 //Me importo los drivers de corps y express
 import express from "express";
 import cors from "cors";
-import { cerrarConexion } from "./conexion.js";
 
 //crea una instacia express para crear un servidor donde se van a recibir las peticiones (tipo apache para php)
 const app = express();
@@ -25,7 +24,8 @@ app.use(express.json());
     }
 })(); //Los parentesis vacios estos ultimos es para llamar a la funcion anonima que he creado para cargar datos
 
-//* Peticion de inicio de sesion
+//* Peticion de inicio de sesion 
+//Creo un endpoint a una api rest para que el cliente pueda enviar peticiones al enpoint login y devuelvo datos en formato json al que hace la peticion
 ///Hago un post de cuando llamo a login con una peticion y lo que va a devolver (Respuesta)
 app.post("/login", async (peticion, respuesta) =>{
     try {
@@ -49,6 +49,7 @@ app.post("/login", async (peticion, respuesta) =>{
 });
 
 //* Peticion de registro
+//Creo otro enpoint para que el cliente pueda enviar peticionees al enpoint register y que devolver una respuesta con datos en formato json
 //Me hago una peticion con /register sobre el localhost:3000 que recibe una peticion y una respuesta
 //La peticion son los datos que recibo y la respuesta lo que devuelvo
 app.post("/register", async (peticion, respuesta) =>{
