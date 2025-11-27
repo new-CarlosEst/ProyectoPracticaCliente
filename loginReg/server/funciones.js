@@ -60,4 +60,5 @@ export async function insertarDatos(email, user, password) {
 }
 
 //Cierro la conexion
+//Me lo comento pq da error esto, asi que no lo cierro
 // await cerrarConexion();

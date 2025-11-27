@@ -4,39 +4,71 @@
 <head>
     <meta name="author" content="new-CarlosEst">
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login/Register page</title>
-</head>
+    <!DOCTYPE html>
+    <html lang="es">
+
+    <head>
+        <meta name="author" content="new-CarlosEst">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Login/Register page</title>
+        <link rel="stylesheet" href="./css/login.css">
+    </head>
 
 <body>
-    <form name="login" action="/login" method="post" id="formLogin">
-        <label for="correo">Correo electronico</label>
-        <input type="text" name="correo" id="emailLogin">
-        <br />
-        <label for="password">Contraseña</label>
-        <!-- todo Hacerme el campo tipo password y que cuando le de a un boton se muestre y se oculte la contraseña -->
-        <input type="text" name="password" id="passLogin">
+    <div class="container" id="container">
+        <div class="form-container sign-up-container">
+            <form name="registro" action="/register" method="post" id="formRegistro">
+                <h1>Crear Cuenta</h1>
+                <label for="usuario">Usuario</label>
+                <input type="text" name="usuario" id="usuario" placeholder="Usuario">
+                <label for="emailRegistro">Correo</label>
+                <input type="text" name="correo" id="emailRegistro" placeholder="Correo">
+                <label for="passRegistro">Contraseña</label>
+                <div class="password-container">
+                    <input type="password" name="password" id="passRegistro" placeholder="Contraseña">
+                    <img src="./resources/ElEyeClose.svg" class="eye-icon eye-closed" alt="Mostrar contraseña">
+                    <img src="./resources/MdiEye.svg" class="eye-icon eye-open" alt="Ocultar contraseña">
+                </div>
+                <label for="passConfirmar">Confirmar Contraseña</label>
+                <div class="password-container">
+                    <input type="password" name="password" id="passConfirmar" placeholder="Confirmar Contraseña">
+                    <img src="./resources/ElEyeClose.svg" class="eye-icon eye-closed" alt="Mostrar contraseña">
+                    <img src="./resources/MdiEye.svg" class="eye-icon eye-open" alt="Ocultar contraseña">
+                </div>
+                <button id="submitRegistro">Registrarte</button>
+            </form>
+        </div>
+        <div class="form-container sign-in-container">
+            <form name="login" action="/login" method="post" id="formLogin">
+                <h1>Iniciar Sesión</h1>
+                <label for="emailLogin">Correo</label>
+                <input type="text" name="correo" id="emailLogin" placeholder="Correo">
+                <label for="passLogin">Contraseña</label>
+                <div class="password-container">
+                    <input type="password" name="password" id="passLogin" placeholder="Contraseña">
+                    <img src="./resources/ElEyeClose.svg" class="eye-icon eye-closed" alt="Mostrar contraseña">
+                    <img src="./resources/MdiEye.svg" class="eye-icon eye-open" alt="Ocultar contraseña">
+                </div>
+                <button id="submitLogin">Iniciar Sesion</button>
+            </form>
+        </div>
+        <div class="overlay-container">
+            <div class="overlay">
+                <div class="overlay-panel overlay-left">
+                    <h1>¡Bienvenido de nuevo!</h1>
+                    <p>Para mantenerte conectado con nosotros, por favor inicia sesión con tu información personal</p>
+                    <button class="ghost" id="signIn">Iniciar Sesión</button>
+                </div>
+                <div class="overlay-panel overlay-right">
+                    <h1>¡Hola, Amigo!</h1>
+                    <p>Introduce tus datos personales y comienza viaje con nosotros</p>
+                    <button class="ghost" id="signUp">Registrarte</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
-        <br />
-        <button id="submit">Iniciar Sesion</button>
-    </form>
-
-    <form name="registro" action="/register" method="post" id="formRegistro">
-        <label for="usuario">Correo electronico</label>
-        <input type="text" name="usuario" id="usuario">
-        <br />
-        <label for="correo">Correo electronico</label>
-        <input type="text" name="correo" id="emailRegistro">
-        <br />
-        <label for="correo">Contraseña</label>
-        <input type="text" name="password" id="passRegistro">
-        <br />
-        <label for="correo">Confirma la contraseña</label>
-        <input type="text" name="password" id="passConfirmar">
-        <br />
-
-        <button id="submint">Registrarte</button>
-    </form>
     <script src="./js/main.js" type="module"></script>
 </body>
 

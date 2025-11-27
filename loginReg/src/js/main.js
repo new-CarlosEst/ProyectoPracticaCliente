@@ -1,5 +1,12 @@
-const formLogin = document.getElementById('formLogin');
-const formRegistro = document.getElementById('formRegistro');
+import { initAnimation } from './animation.js';
+import { initAuth } from './auth.js';
+import { initPasswordToggle } from './password.js';
+
+document.addEventListener('DOMContentLoaded', () => {
+    initAnimation();
+    initAuth();
+    initPasswordToggle();
+});
 
 //una ver seleccionado el formualario login paso por aqui
 if (formLogin) {
